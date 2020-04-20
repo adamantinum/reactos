@@ -1605,11 +1605,9 @@ KdbEnterDebuggerException(
             ExceptionRecord && ExceptionRecord->NumberParameters != 0)
         {
             /* FIXME: Add noexec memory stuff */
-            ULONG_PTR TrapCr2;
-            ULONG Err;
-
-            TrapCr2 = __readcr2();
+            ULONG_PTR TrapCr2 = __readcr2();
 #ifndef _M_AMD64
+            ULONG Err;
             Err = TrapFrame->ErrCode;
             KdbpPrint("Memory at 0x%p could not be %s: ", TrapCr2, (Err & (1 << 1)) ? "written" : "read");
             if ((Err & (1 << 0)) == 0)
